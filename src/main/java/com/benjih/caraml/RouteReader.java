@@ -2,6 +2,7 @@ package com.benjih.caraml;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -15,11 +16,23 @@ public class RouteReader {
 		this.projectRoot = projectRoot;
 	}
 
-	public String readRoutes() throws IOException {
-		System.out.println(new File(projectRoot + "/routes").getAbsolutePath());
-		List<String> sstrings = FileUtils.readLines(new File(projectRoot + "/routes"));
+	public List<String> readRoutes() throws IOException {
+		List<String> lines = FileUtils.readLines(new File(projectRoot + "/routes"));
 		
-		return sstrings.get(0);
+		return removeCommentsFromRoutes(lines);
+	}
+
+	private List<String> removeCommentsFromRoutes(List<String> lines) {
+		List<String> linesToRemove = new ArrayList<String>();
+		
+		for(String singleLine : lines) {
+			if(singleLine.startsWith("#")) {
+				linesToRemove.add(singleLine);
+			}
+		}
+		
+		lines.removeAll(linesToRemove);
+		return lines;
 	}
 
 }
