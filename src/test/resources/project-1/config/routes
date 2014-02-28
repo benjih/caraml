@@ -3,4 +3,4 @@ GET	/home		MainController.home
 # This is for the guestbook form
 POST	/submit		MainController.post
 
-*	/bout		MainController.about
+*	/about		MainController.about
