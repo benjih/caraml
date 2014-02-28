@@ -11,7 +11,7 @@ public class RouteReader {
 
 	public static List<Route> readRoutes(String uri) throws IOException {
 		List<String> lines = FileUtils.readLines(new File(uri));
-		List<String> tidiedStrings = removeCommentsFromRoutes(lines);
+		List<String> tidiedStrings = tidyRoutes(lines);
 		
 		List<Route> routes = new ArrayList<Route>();
 		
@@ -22,11 +22,11 @@ public class RouteReader {
 		return routes;
 	}
 
-	private static List<String> removeCommentsFromRoutes(List<String> lines) {
+	private static List<String> tidyRoutes(List<String> lines) {
 		List<String> linesToRemove = new ArrayList<String>();
 		
 		for(String singleLine : lines) {
-			if(singleLine.startsWith("#")) {
+			if(singleLine.startsWith("#") || singleLine.isEmpty()) {
 				linesToRemove.add(singleLine);
 			}
 		}

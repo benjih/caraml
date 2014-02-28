@@ -18,15 +18,24 @@ public class RouteReaderTest {
 	
 	@Test
 	public void iCanReadARoutesFile() throws IOException {
-		List<Route> something = RouteReader.readRoutes("src/test/resources/routes");
+		List<Route> something = RouteReader.readRoutes("src/test/resources/routes1");
 		assertThat(something.get(0).getUrl(), is("test"));
 	}
 	
 	@Test
 	public void readingTheRoutesFileIgnoresComments() throws IOException {
-		List<Route> something = RouteReader.readRoutes("src/test/resources/routes");
+		List<Route> something = RouteReader.readRoutes("src/test/resources/routes1");
 		
 		assertThat(something.size(), is(1));
+		assertFalse(something.get(0).getUrl().equals("# This is a comment"));
+	}
+	
+	@Test
+	public void readingTheRoutesFileIgnoresEmptyLines() throws IOException {
+		List<Route> something = RouteReader.readRoutes("src/test/resources/routes1");
+		
+		assertThat(something.size(), is(1));
+		assertFalse(something.get(0).getUrl().equals("# This is a comment"));
 		assertFalse(something.get(0).getUrl().equals("# This is a comment"));
 	}
 	
