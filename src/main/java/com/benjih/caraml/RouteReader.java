@@ -16,10 +16,17 @@ public class RouteReader {
 		this.projectRoot = projectRoot;
 	}
 
-	public List<String> readRoutes() throws IOException {
+	public List<Route> readRoutes() throws IOException {
 		List<String> lines = FileUtils.readLines(new File(projectRoot + "/routes"));
+		List<String> tidiedStrings = removeCommentsFromRoutes(lines);
 		
-		return removeCommentsFromRoutes(lines);
+		List<Route> routes = new ArrayList<Route>();
+		
+		for(String string : tidiedStrings) {
+			routes.add(new Route(string));
+		}
+		
+		return routes;
 	}
 
 	private List<String> removeCommentsFromRoutes(List<String> lines) {
