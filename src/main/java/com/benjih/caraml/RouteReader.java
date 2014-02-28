@@ -9,15 +9,8 @@ import org.apache.commons.io.FileUtils;
 
 public class RouteReader {
 
-
-	private String projectRoot;
-
-	public RouteReader(String projectRoot) {
-		this.projectRoot = projectRoot;
-	}
-
-	public List<Route> readRoutes() throws IOException {
-		List<String> lines = FileUtils.readLines(new File(projectRoot + "/routes"));
+	public static List<Route> readRoutes(String uri) throws IOException {
+		List<String> lines = FileUtils.readLines(new File(uri));
 		List<String> tidiedStrings = removeCommentsFromRoutes(lines);
 		
 		List<Route> routes = new ArrayList<Route>();
@@ -29,7 +22,7 @@ public class RouteReader {
 		return routes;
 	}
 
-	private List<String> removeCommentsFromRoutes(List<String> lines) {
+	private static List<String> removeCommentsFromRoutes(List<String> lines) {
 		List<String> linesToRemove = new ArrayList<String>();
 		
 		for(String singleLine : lines) {

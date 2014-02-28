@@ -18,15 +18,13 @@ public class RouteReaderTest {
 	
 	@Test
 	public void iCanReadARoutesFile() throws IOException {
-		RouteReader routeReader = new RouteReader("src/test/resources/");
-		List<Route> something = routeReader.readRoutes();
+		List<Route> something = RouteReader.readRoutes("src/test/resources/routes");
 		assertThat(something.get(0).getUrl(), is("test"));
 	}
 	
 	@Test
 	public void readingTheRoutesFileIgnoresComments() throws IOException {
-		RouteReader routeReader = new RouteReader("src/test/resources/");
-		List<Route> something = routeReader.readRoutes();
+		List<Route> something = RouteReader.readRoutes("src/test/resources/routes");
 		
 		assertThat(something.size(), is(1));
 		assertFalse(something.get(0).getUrl().equals("# This is a comment"));
