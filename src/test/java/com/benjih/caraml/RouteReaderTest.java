@@ -39,11 +39,4 @@ public class RouteReaderTest {
 		assertFalse(something.get(0).getUrl().equals("# This is a comment"));
 	}
 	
-	@Test
-	public void thisIsInTheWrongPlace() throws IOException {
-		Document document = Jsoup.parse(new File("src/main/resources/template.html"), "UTF-8");
-		document.select("body").append("<div>hello</div>");
-		System.out.println(document.toString());
-	}
-	
 }

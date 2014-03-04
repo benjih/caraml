@@ -1,6 +1,5 @@
 package com.benjih.caraml;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -13,7 +12,7 @@ public class DocumentBuilder {
 	
 	public DocumentBuilder() {
 		try {
-			this.document = Jsoup.parse(new File("src/main/resources/template.html"), "UTF-8");
+			this.document = Jsoup.parse(getClass().getResourceAsStream("/template.html"), "UTF-8", "/");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
