@@ -16,7 +16,11 @@ public class RouteReader {
 		List<Route> routes = new ArrayList<Route>();
 		
 		for(String string : tidiedStrings) {
-			routes.add(new Route(string));
+			try {
+				routes.add(new Route(string));
+			} catch (InvalidRouteException e) {
+				
+			}
 		}
 		
 		return routes;

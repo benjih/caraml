@@ -21,7 +21,7 @@ public class DocumentBuilder {
 	public DocumentBuilder addRoutes(List<Route> routes) {
 		document.body().append("<h1>Routes</h1>");
 		for(Route route : routes) {
-			document.body().append("<div>" + route.getUrl() + "</div>");
+			document.body().append("<div>" + route.getType() + " " + route.getUrl() + " " + route.getControllerName() + "</div>");
 		}
 		return this;
 	}

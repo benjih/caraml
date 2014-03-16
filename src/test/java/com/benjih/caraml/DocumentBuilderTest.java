@@ -27,19 +27,19 @@ public class DocumentBuilderTest {
 	}
 	
 	@Test
-	public void iCanReadARoutesFile() {
+	public void iCanReadARoutesFile() throws InvalidRouteException {
 		DocumentBuilder builder = new DocumentBuilder();
 		
 		List<Route> routes = new ArrayList<Route>();
-		routes.add(new Route("test/1"));
-		routes.add(new Route("test/2"));
+		routes.add(new Route("GET	test/1	something.somewhere"));
+		routes.add(new Route("GET	test/2	something.somewhere"));
 		
 		Document routeDocument = builder.addRoutes(routes).build();
 		
 		assertThat(routeDocument.getElementsByTag("h1").text(), is("Routes"));
 		assertThat(routeDocument.getElementsByTag("div").size(), is(2));
-		assertThat(routeDocument.getElementsByTag("div").get(0).text(), is("test/1"));
-		assertThat(routeDocument.getElementsByTag("div").get(1).text(), is("test/2"));
+		assertThat(routeDocument.getElementsByTag("div").get(0).text(), is("GET test/1 something.somewhere"));
+		assertThat(routeDocument.getElementsByTag("div").get(1).text(), is("GET test/2 something.somewhere"));
 	}
 	
 }

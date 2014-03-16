@@ -19,7 +19,7 @@ public class RouteReaderTest {
 	@Test
 	public void iCanReadARoutesFile() throws IOException {
 		List<Route> something = RouteReader.readRoutes("src/test/resources/routes1");
-		assertThat(something.get(0).getUrl(), is("test"));
+		assertThat(something.get(0).getUrl(), is("/test"));
 	}
 	
 	@Test
