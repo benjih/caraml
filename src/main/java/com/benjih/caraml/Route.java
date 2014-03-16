@@ -4,7 +4,8 @@ public class Route {
 
 	private String type;
 	private String url;
-	private String classAndMethod;
+	private String controllerClass;
+	private String controllerMethod;
 	
 	public Route(String route) throws InvalidRouteException {
 		String[] split = route.split("\\t+");
@@ -15,7 +16,8 @@ public class Route {
 		
 		this.type = split[0];
 		this.url = split[1];
-		this.classAndMethod = split[2];
+		this.controllerClass = split[2].split("\\.")[0];
+		this.controllerMethod = split[2].split("\\.")[1];
 	}
 	
 	public String getType() {
@@ -26,8 +28,12 @@ public class Route {
 		return url;
 	}
 	
-	public String getControllerName() {
-		return classAndMethod;
+	public String getControllerClass() {
+		return controllerClass;
+	}
+	
+	public String getControllerMethod() {
+		return controllerMethod;
 	}
 	
 }

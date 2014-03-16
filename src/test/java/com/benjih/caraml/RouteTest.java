@@ -27,9 +27,11 @@ public class RouteTest {
 	@Test
 	public void iCanCreateARouteAndRetrieveTheClassAndMethod() throws InvalidRouteException {
 		Route route = new Route("POST				/a/url		AController.somewhere");
-		assertThat(route.getControllerName(), is("AController.somewhere"));
+		assertThat(route.getControllerClass(), is("AController"));
+		assertThat(route.getControllerMethod(), is("somewhere"));
 		Route route2 = new Route("GET	/anotherurl							AnotherController.somewhereElse");
-		assertThat(route2.getControllerName(), is("AnotherController.somewhereElse"));
+		assertThat(route2.getControllerClass(), is("AnotherController"));
+		assertThat(route2.getControllerMethod(), is("somewhereElse"));
 	}
 	
 	@Test
