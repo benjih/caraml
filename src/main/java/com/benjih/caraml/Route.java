@@ -1,11 +1,15 @@
 package com.benjih.caraml;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Route {
 
 	private String type;
 	private String url;
 	private String controllerClass;
 	private String controllerMethod;
+	private List<String> parameters;
 	
 	public Route(String route) throws InvalidRouteException {
 		String[] split = route.split("\\t+");
@@ -18,6 +22,8 @@ public class Route {
 		this.url = split[1];
 		this.controllerClass = split[2].split("\\.")[0];
 		this.controllerMethod = split[2].split("\\.")[1];
+		
+		this.parameters = new ArrayList<String>();
 	}
 	
 	public String getType() {
@@ -34,6 +40,14 @@ public class Route {
 	
 	public String getControllerMethod() {
 		return controllerMethod;
+	}
+
+	public void addParameter(String parameter) {
+		parameters.add(parameter);
+	}
+
+	public List<String> getParameters() {
+		return parameters;
 	}
 	
 }

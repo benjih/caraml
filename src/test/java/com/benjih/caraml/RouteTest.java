@@ -4,6 +4,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 public class RouteTest {
@@ -32,6 +35,21 @@ public class RouteTest {
 		Route route2 = new Route("GET	/anotherurl							AnotherController.somewhereElse");
 		assertThat(route2.getControllerClass(), is("AnotherController"));
 		assertThat(route2.getControllerMethod(), is("somewhereElse"));
+	}
+	
+	@Test
+	public void iCanGetTheAcceptedParametersForARoute() throws InvalidRouteException {
+		Route route = new Route("POST				/a/url		AController.somewhere");
+		
+		route.addParameter("one");
+		route.addParameter("two");
+		route.addParameter("three");
+		
+		assertThat(route.getParameters().size(), is(3));
+		assertThat(route.getParameters().get(0), is("one"));
+		assertThat(route.getParameters().get(1), is("two"));
+		assertThat(route.getParameters().get(2), is("three"));
+		
 	}
 	
 	@Test
