@@ -16,7 +16,7 @@ public class Caraml {
 		File projectRoot = new File(uri);
 		System.out.println("Documenting " + projectRoot.getName());
 		
-		List<Route> routes = RouteReader.readRoutes(projectRoot.getAbsolutePath() + "/config/routes");
+		List<Route> routes = RouteReader.readRoutes(projectRoot.getAbsolutePath() + "/conf/routes");
 		
 		System.out.println(routes.size() + " routes found");
 		
