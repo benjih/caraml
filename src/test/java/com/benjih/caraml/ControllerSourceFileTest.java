@@ -2,6 +2,9 @@ package com.benjih.caraml;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import japa.parser.ParseException;
+
+import java.io.IOException;
 
 import org.junit.Test;
 
@@ -22,6 +25,12 @@ public class ControllerSourceFileTest {
 		
 		assertThat(controller.getParametersFor("showAlbums").size(), is(1));
 		assertThat(controller.getParametersFor("showAlbums").get(0), is("String artist"));
+	}
+	
+	@Test
+	public void iDontGetANullPointerExceptionWhenICallForParametersOfAnInvalidMethod() throws IOException, ParseException {
+		ControllerSourceFile controller = new ControllerSourceFile("src/test/resources/Application.java");
+		assertThat(controller.getParametersFor("missingMethod").size(), is(0));
 	}
 
 }

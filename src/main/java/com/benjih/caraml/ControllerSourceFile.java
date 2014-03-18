@@ -46,6 +46,10 @@ public class ControllerSourceFile {
 		
 		MethodDeclaration method = methods.get(methodName);
 		
+		if(method == null) {
+			return methodParameters;
+		}
+		
 		if(method.getParameters() != null) {
 			for(Parameter parameter : method.getParameters()) {
 				methodParameters.add(parameter.toString());
