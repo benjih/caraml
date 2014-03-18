@@ -7,21 +7,18 @@ import japa.parser.ast.body.BodyDeclaration;
 import japa.parser.ast.body.MethodDeclaration;
 import japa.parser.ast.body.Parameter;
 import japa.parser.ast.body.TypeDeclaration;
-import japa.parser.ast.visitor.VoidVisitorAdapter;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-
-
+import java.util.Map;
 
 public class ControllerSourceFile {
 	
 	private CompilationUnit parsedFile;
-	private Set<MethodDeclaration> methods;
+	private Map<String, MethodDeclaration> methods;
 
 	public ControllerSourceFile(String uri) throws IOException, ParseException {
 		FileInputStream in = new FileInputStream(uri);
@@ -39,37 +36,35 @@ public class ControllerSourceFile {
 	public List<String> getMethods() {
 		List<String> methodNames = new ArrayList<String>();
 		
-		for(MethodDeclaration method : methods) {
-			methodNames.add(method.getName());
-		}
+		methodNames.addAll(methods.keySet());
 		
 		return methodNames;
 	}
 
-	public List<String> getParametersFor(String string) {
+	public List<String> getParametersFor(String methodName) {
 		List<String> methodParameters = new ArrayList<String>();
-		for(MethodDeclaration method : methods) {
-			if(method.getName().equals(string)) {
-				if(method.getParameters() != null) {
-					for(Parameter parameter : method.getParameters()) {
-						methodParameters.add(parameter.toString());
-					}
-				}
+		
+		MethodDeclaration method = methods.get(methodName);
+		
+		if(method.getParameters() != null) {
+			for(Parameter parameter : method.getParameters()) {
+				methodParameters.add(parameter.toString());
 			}
 		}
 		
 		return methodParameters;
 	}
 	
-	private Set<MethodDeclaration> findMethods(CompilationUnit cu) {
-		Set<MethodDeclaration> methods = new HashSet<MethodDeclaration>();
+	private Map<String, MethodDeclaration> findMethods(CompilationUnit cu) {
+		Map<String, MethodDeclaration> methods = new HashMap<String, MethodDeclaration>();
 		
 		List<TypeDeclaration> types = cu.getTypes();
 		for (TypeDeclaration type : types) {
 			List<BodyDeclaration> members = type.getMembers();
 			for (BodyDeclaration member : members) {
 				if (member instanceof MethodDeclaration) {
-					methods.add((MethodDeclaration) member);
+					MethodDeclaration method = (MethodDeclaration) member;
+					methods.put(method.getName(), method);
 				}
 			}
 		}
