@@ -53,6 +53,20 @@ public class RouteTest {
 	}
 	
 	@Test
+	public void iCanParseRoutesThatUseSpacesInsteadOfTabs() {
+		try {
+			Route route = new Route("GET     /                                       Application.index");
+			assertThat(route.getType(), is("GET"));
+			assertThat(route.getUrl(), is("/"));
+			assertThat(route.getControllerClass(), is("Application"));
+			assertThat(route.getControllerMethod(), is("index"));
+		} catch (InvalidRouteException e) {
+			fail();
+		}
+		
+	}
+	
+	@Test
 	public void iCannotCreateAnIncorrectRoute() {
 		try {
 			Route invalidRoute = new Route("GET	/hello");

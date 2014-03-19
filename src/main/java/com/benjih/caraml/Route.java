@@ -12,8 +12,8 @@ public class Route {
 	private List<String> parameters;
 	
 	public Route(String route) throws InvalidRouteException {
-		String[] split = route.split("\\t+");
-		
+		String[] split = route.split("\\s+");
+		System.out.println(split.length);
 		if(split.length != 3) {
 			throw new InvalidRouteException("The routes file contains an invalid route that cannot be read.");
 		}
