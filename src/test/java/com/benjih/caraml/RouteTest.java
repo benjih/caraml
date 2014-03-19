@@ -94,7 +94,7 @@ public class RouteTest {
 		route.addAnnotation("@CaramlController(\"Yeah\")");
 		
 		assertThat(route.getAnnotations().size(), is(3));
-		assertThat(route.getAnnotations().get(0), is("@CaramlController(\"Somethnig\")"));
+		assertThat(route.getAnnotations().get(0), is("@CaramlController(\"Something\")"));
 		assertThat(route.getAnnotations().get(1), is("@CaramlController(\"Another\")"));
 		assertThat(route.getAnnotations().get(2), is("@CaramlController(\"Yeah\")"));
 	}

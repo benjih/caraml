@@ -60,7 +60,7 @@ public class Route {
 	}
 	
 	public void addAnnotation(String annotation) {
-		
+		annotations.add(annotation);
 	}
 	
 	public void addAllAnnotations(List<String> annotations) {

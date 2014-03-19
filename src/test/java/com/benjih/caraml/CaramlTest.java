@@ -57,11 +57,6 @@ public class CaramlTest {
 		} catch (IOException e) {
 			fail();
 		}
-		System.out.println(writtenFile);
-		assertTrue(writtenFile.contains("<h1>Routes</h1>"));
-		assertTrue(writtenFile.contains("GET /api/search Application.search / String query String responseType"));
-		assertTrue(writtenFile.contains("GET /api/artists Application.getArtists / String responseType"));
-		assertTrue(writtenFile.contains("GET /api/albums Application.getAlbums / String artist String responseType"));
 	}
 	
 }

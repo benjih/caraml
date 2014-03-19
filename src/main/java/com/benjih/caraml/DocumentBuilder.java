@@ -19,18 +19,18 @@ public class DocumentBuilder {
 	}
 
 	public DocumentBuilder addRoutes(List<Route> routes) {
-		document.body().append("<h1>Routes</h1>");
 		for(Route route : routes) {
 			String parameters = new String();
 			if(route.getParameters().size() != 0) {
-				parameters = " /";
 				for(String parameter : route.getParameters()) {
 					parameters = parameters + " " + parameter;
 				}
 			}
-			document.body().append("<div>" + route.getType() + " " + route.getUrl() + " " + 
-					route.getControllerClass() + "." + route.getControllerMethod() + 
-					parameters + "</div>");
+			document.getElementsByTag("main").append("<section><div>" +
+					"<span class=\"endpoint-type endpoint-" + route.getType().toLowerCase() + "\">" + route.getType() + "</span>" +
+					"<span class=\"endpoint-address\">" + route.getUrl() + " " + route.getControllerClass() + "." + route.getControllerMethod() + "</span>" + 
+					"<span class=\"endpoint-parameters\">" + parameters + "</span></div>" +
+					"<p>Some stuff goes in here</p>" + "</section>");
 		}
 		return this;
 	}

@@ -36,10 +36,12 @@ public class DocumentBuilderTest {
 		
 		Document routeDocument = builder.addRoutes(routes).build();
 		
-		assertThat(routeDocument.getElementsByTag("h1").text(), is("Routes"));
-		assertThat(routeDocument.getElementsByTag("div").size(), is(2));
-		assertThat(routeDocument.getElementsByTag("div").get(0).text(), is("GET /test/1 something.somewhere"));
-		assertThat(routeDocument.getElementsByTag("div").get(1).text(), is("GET /test/2 something.somewhere"));
+		assertThat(routeDocument.getElementsByTag("section").get(0).getElementsByClass("endpoint-type").text(), is("GET"));
+		assertThat(routeDocument.getElementsByTag("section").get(0).getElementsByClass("endpoint-address").text(), is("/test/1 something.somewhere"));
+		assertThat(routeDocument.getElementsByTag("section").get(0).getElementsByClass("endpoint-parameters").text(), is(""));
+		assertThat(routeDocument.getElementsByTag("section").get(1).getElementsByClass("endpoint-type").text(), is("GET"));
+		assertThat(routeDocument.getElementsByTag("section").get(1).getElementsByClass("endpoint-address").text(), is("/test/2 something.somewhere"));
+		assertThat(routeDocument.getElementsByTag("section").get(1).getElementsByClass("endpoint-parameters").text(), is(""));
 	}
 	
 	@Test
@@ -53,7 +55,9 @@ public class DocumentBuilderTest {
 		
 		Document routeDocument = builder.addRoutes(routes).build();
 		
-		assertThat(routeDocument.getElementsByTag("div").get(0).text(), is("GET /test/1 something.somewhere / String parameter"));
+		assertThat(routeDocument.getElementsByTag("section").get(0).getElementsByClass("endpoint-type").text(), is("GET"));
+		assertThat(routeDocument.getElementsByTag("section").get(0).getElementsByClass("endpoint-address").text(), is("/test/1 something.somewhere"));
+		assertThat(routeDocument.getElementsByTag("section").get(0).getElementsByClass("endpoint-parameters").text(), is("String parameter"));
 	}
 	
 	@Test
@@ -65,7 +69,9 @@ public class DocumentBuilderTest {
 		
 		Document routeDocument = builder.addRoutes(routes).build();
 		
-		assertThat(routeDocument.getElementsByTag("div").get(0).text(), is("GET /test/1 something.somewhere"));
+		assertThat(routeDocument.getElementsByTag("section").get(0).getElementsByClass("endpoint-type").text(), is("GET"));
+		assertThat(routeDocument.getElementsByTag("section").get(0).getElementsByClass("endpoint-address").text(), is("/test/1 something.somewhere"));
+		assertThat(routeDocument.getElementsByTag("section").get(0).getElementsByClass("endpoint-parameters").text(), is(""));
 	}
 	
 }
