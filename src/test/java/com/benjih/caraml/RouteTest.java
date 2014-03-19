@@ -83,7 +83,33 @@ public class RouteTest {
 		} catch (InvalidRouteException e) {
 			fail();
 		}
+	}
+	
+	@Test
+	public void iCanGetAnnotationsAssociatedWithARoute() throws InvalidRouteException {
+		Route route = new Route("POST				/a/url		AController.somewhere");
 		
+		route.addAnnotation("@CaramlController(\"Something\")");
+		route.addAnnotation("@CaramlController(\"Another\")");
+		route.addAnnotation("@CaramlController(\"Yeah\")");
+		
+		assertThat(route.getAnnotations().size(), is(3));
+		assertThat(route.getAnnotations().get(0), is("@CaramlController(\"Somethnig\")"));
+		assertThat(route.getAnnotations().get(1), is("@CaramlController(\"Another\")"));
+		assertThat(route.getAnnotations().get(2), is("@CaramlController(\"Yeah\")"));
+	}
+	
+	@Test
+	public void iCanAddAllTheAnnotationsFromACollection() throws InvalidRouteException {
+		Route route = new Route("POST				/a/url		AController.somewhere");
+		List<String> annotations = new ArrayList<String>();
+		annotations.add("@CaramlController(\"Annotation\")");
+		annotations.add("@CaramlController(\"Another one\")");
+		
+		route.addAllAnnotations(annotations);
+		assertThat(route.getAnnotations().size(), is(2));
+		assertThat(route.getAnnotations().get(0), is("@CaramlController(\"Annotation\")"));
+		assertThat(route.getAnnotations().get(1), is("@CaramlController(\"Another one\")"));
 	}
 	
 	@Test

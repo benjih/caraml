@@ -10,6 +10,7 @@ public class Route {
 	private String controllerClass;
 	private String controllerMethod;
 	private List<String> parameters;
+	private List<String> annotations;
 	
 	public Route(String route) throws InvalidRouteException {
 		String[] split = route.split("\\s+");
@@ -23,6 +24,7 @@ public class Route {
 		this.controllerMethod = split[2].split("\\.")[1];
 		
 		this.parameters = new ArrayList<String>();
+		this.annotations = new ArrayList<String>();
 	}
 	
 	public String getType() {
@@ -55,6 +57,18 @@ public class Route {
 
 	public List<String> getParameters() {
 		return parameters;
+	}
+	
+	public void addAnnotation(String annotation) {
+		
+	}
+	
+	public void addAllAnnotations(List<String> annotations) {
+		this.annotations.addAll(annotations);
+	}
+
+	public List<String> getAnnotations() {
+		return annotations;
 	}
 
 }
