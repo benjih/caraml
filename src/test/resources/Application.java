@@ -10,6 +10,7 @@ import models.*;
 
 public class Application extends Controller {
 
+	@CaramlController("This is about showArtists")
     public static void showArtists() {
         render();
     }

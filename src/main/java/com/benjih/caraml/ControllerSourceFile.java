@@ -7,6 +7,7 @@ import japa.parser.ast.body.BodyDeclaration;
 import japa.parser.ast.body.MethodDeclaration;
 import japa.parser.ast.body.Parameter;
 import japa.parser.ast.body.TypeDeclaration;
+import japa.parser.ast.expr.AnnotationExpr;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -42,21 +43,37 @@ public class ControllerSourceFile {
 	}
 
 	public List<String> getParametersFor(String methodName) {
-		List<String> methodParameters = new ArrayList<String>();
+		List<String> parameters = new ArrayList<String>();
 		
 		MethodDeclaration method = methods.get(methodName);
 		
 		if(method == null) {
-			return methodParameters;
+			return parameters;
 		}
 		
 		if(method.getParameters() != null) {
 			for(Parameter parameter : method.getParameters()) {
-				methodParameters.add(parameter.toString());
+				parameters.add(parameter.toString());
 			}
 		}
 		
-		return methodParameters;
+		return parameters;
+	}
+	
+	public List<String> getAnnotationsFor(String methodName) {
+		List<String> annotations = new ArrayList<String>();
+		
+		MethodDeclaration method = methods.get(methodName);
+		
+		if(method == null) {
+			return annotations;
+		}
+		
+		for(AnnotationExpr annotation : method.getAnnotations()) {
+			annotations.add(annotation.toString());
+		}
+		
+		return annotations;
 	}
 	
 	private Map<String, MethodDeclaration> findMethods(CompilationUnit cu) {
