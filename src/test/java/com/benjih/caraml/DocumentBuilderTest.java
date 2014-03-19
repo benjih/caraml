@@ -74,4 +74,20 @@ public class DocumentBuilderTest {
 		assertThat(routeDocument.getElementsByTag("section").get(0).getElementsByClass("endpoint-parameters").text(), is(""));
 	}
 	
+	
+	@Test
+	public void iCanDisplayTheDescriptiveAnnotationForAController() throws InvalidRouteException {
+		DocumentBuilder builder = new DocumentBuilder();
+		
+		List<Route> routes = new ArrayList<Route>();
+		Route route = new Route("GET	/test/1	something.somewhere");
+		route.addAnnotation("@CaramlController(\"Yeah, this is a comment.\")");
+		routes.add(route);
+		
+		Document routeDocument = builder.addRoutes(routes).build();
+		
+		assertThat(routeDocument.getElementsByTag("section").get(0).getElementsByTag("p").text(), is("Yeah, this is a comment."));
+	}
+	
+	
 }

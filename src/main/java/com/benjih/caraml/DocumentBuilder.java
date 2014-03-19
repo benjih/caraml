@@ -26,11 +26,19 @@ public class DocumentBuilder {
 					parameters = parameters + " " + parameter;
 				}
 			}
+			
+			String description = "";
+			for(String annotation : route.getAnnotations()) {
+				if(annotation.startsWith("@CaramlController")) {
+					description = annotation.substring(19, annotation.length() - 2);
+				}
+			}
+			
 			document.getElementsByTag("main").append("<section><div>" +
 					"<span class=\"endpoint-type endpoint-" + route.getType().toLowerCase() + "\">" + route.getType() + "</span>" +
 					"<span class=\"endpoint-address\">" + route.getUrl() + " " + route.getControllerClass() + "." + route.getControllerMethod() + "</span>" + 
 					"<span class=\"endpoint-parameters\">" + parameters + "</span></div>" +
-					"<p>Some stuff goes in here</p>" + "</section>");
+					"<p>" + description + "</p>" + "</section>");
 		}
 		return this;
 	}

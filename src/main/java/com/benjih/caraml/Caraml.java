@@ -24,6 +24,7 @@ public class Caraml {
 		for(Route route : routes) {
 			ControllerSourceFile csf = new ControllerSourceFile(uri + route.getControllerClassUri());
 			route.addAllParameters(csf.getParametersFor(route.getControllerMethod()));
+			route.addAllAnnotations(csf.getAnnotationsFor(route.getControllerMethod()));
 		}
 		
 		Document document = new DocumentBuilder().addRoutes(routes).build();

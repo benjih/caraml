@@ -24,7 +24,7 @@ public class CaramlTest {
 
 	@Before
 	public void before() throws IOException {
-//	    System.setOut(new PrintStream(outContent));
+	    System.setOut(new PrintStream(outContent));
 	    System.setErr(new PrintStream(errContent));
 	    
 	    FileUtils.deleteDirectory(new File("src/test/resources/demo-project/docs"));
@@ -47,8 +47,8 @@ public class CaramlTest {
 			e.printStackTrace();
 		}
 		
-//		assertTrue(outContent.toString().contains("Documenting demo-project"));
-//		assertTrue(outContent.toString().contains("3 routes found"));
+		assertTrue(outContent.toString().contains("Documenting demo-project"));
+		assertTrue(outContent.toString().contains("3 routes found"));
 		
 		String writtenFile = null;
 		

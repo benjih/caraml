@@ -69,8 +69,10 @@ public class ControllerSourceFile {
 			return annotations;
 		}
 		
-		for(AnnotationExpr annotation : method.getAnnotations()) {
-			annotations.add(annotation.toString());
+		if(method.getAnnotations() != null) { /// THIS IS UNTESTED
+			for(AnnotationExpr annotation : method.getAnnotations()) {
+				annotations.add(annotation.toString());
+			}
 		}
 		
 		return annotations;
