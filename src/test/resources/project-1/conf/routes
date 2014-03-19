@@ -1,6 +1,0 @@
-GET	/home		MainController.home
-
-# This is for the guestbook form
-POST	/submit		MainController.post
-
-*	/about		MainController.about
