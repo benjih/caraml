@@ -31,15 +31,41 @@ public class DocumentBuilderTest {
 		DocumentBuilder builder = new DocumentBuilder();
 		
 		List<Route> routes = new ArrayList<Route>();
-		routes.add(new Route("GET	test/1	something.somewhere"));
-		routes.add(new Route("GET	test/2	something.somewhere"));
+		routes.add(new Route("GET	/test/1	something.somewhere"));
+		routes.add(new Route("GET	/test/2	something.somewhere"));
 		
 		Document routeDocument = builder.addRoutes(routes).build();
 		
 		assertThat(routeDocument.getElementsByTag("h1").text(), is("Routes"));
 		assertThat(routeDocument.getElementsByTag("div").size(), is(2));
-		assertThat(routeDocument.getElementsByTag("div").get(0).text(), is("GET test/1 something.somewhere"));
-		assertThat(routeDocument.getElementsByTag("div").get(1).text(), is("GET test/2 something.somewhere"));
+		assertThat(routeDocument.getElementsByTag("div").get(0).text(), is("GET /test/1 something.somewhere"));
+		assertThat(routeDocument.getElementsByTag("div").get(1).text(), is("GET /test/2 something.somewhere"));
+	}
+	
+	@Test
+	public void ifThereAreParametersOnARouteTheyWillBeOutputted() throws InvalidRouteException {
+		DocumentBuilder builder = new DocumentBuilder();
+		
+		List<Route> routes = new ArrayList<Route>();
+		Route route = new Route("GET	/test/1	something.somewhere");
+		route.addParameter("String parameter");
+		routes.add(route);
+		
+		Document routeDocument = builder.addRoutes(routes).build();
+		
+		assertThat(routeDocument.getElementsByTag("div").get(0).text(), is("GET /test/1 something.somewhere / String parameter"));
+	}
+	
+	@Test
+	public void ifThereAreNoParamtersOnTheRouteThereIsNoParameterOutput() throws InvalidRouteException {
+		DocumentBuilder builder = new DocumentBuilder();
+		
+		List<Route> routes = new ArrayList<Route>();
+		routes.add(new Route("GET	/test/1	something.somewhere"));
+		
+		Document routeDocument = builder.addRoutes(routes).build();
+		
+		assertThat(routeDocument.getElementsByTag("div").get(0).text(), is("GET /test/1 something.somewhere"));
 	}
 	
 }

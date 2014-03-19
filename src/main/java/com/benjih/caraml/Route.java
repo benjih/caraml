@@ -13,7 +13,6 @@ public class Route {
 	
 	public Route(String route) throws InvalidRouteException {
 		String[] split = route.split("\\s+");
-		System.out.println(split.length);
 		if(split.length != 3) {
 			throw new InvalidRouteException("The routes file contains an invalid route that cannot be read.");
 		}
@@ -38,6 +37,10 @@ public class Route {
 		return controllerClass;
 	}
 	
+	public String getControllerClassUri() {
+		return "/app/controllers/" + controllerClass + ".java";
+	}
+	
 	public String getControllerMethod() {
 		return controllerMethod;
 	}
@@ -45,9 +48,13 @@ public class Route {
 	public void addParameter(String parameter) {
 		parameters.add(parameter);
 	}
+	
+	public void addAllParameters(List<String> parameters) {
+		this.parameters.addAll(parameters);
+	}
 
 	public List<String> getParameters() {
 		return parameters;
 	}
-	
+
 }

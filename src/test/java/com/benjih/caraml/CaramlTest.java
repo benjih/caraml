@@ -5,6 +5,8 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import japa.parser.ParseException;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -22,10 +24,10 @@ public class CaramlTest {
 
 	@Before
 	public void before() throws IOException {
-	    System.setOut(new PrintStream(outContent));
+//	    System.setOut(new PrintStream(outContent));
 	    System.setErr(new PrintStream(errContent));
 	    
-	    FileUtils.deleteDirectory(new File("src/test/resources/project-1/docs"));
+	    FileUtils.deleteDirectory(new File("src/test/resources/demo-project/docs"));
 	}
 
 	@After
@@ -33,34 +35,33 @@ public class CaramlTest {
 	    System.setOut(null);
 	    System.setErr(null);
 	    
-	    FileUtils.deleteDirectory(new File("src/test/resources/project-1/docs"));
+	    FileUtils.deleteDirectory(new File("src/test/resources/demo-project/docs"));
 	}
 	
 	@Test
 	public void iCanRunCaraml() {
-		String[] args = {"src/test/resources/project-1"};
+		String[] args = {"src/test/resources/demo-project"};
 		try {
 			Caraml.main(args);
-		} catch (IOException e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
-		System.out.println(outContent.toString());
-		
-		assertTrue(outContent.toString().contains("Documenting project-1"));
-		assertTrue(outContent.toString().contains("3 routes found"));
+//		assertTrue(outContent.toString().contains("Documenting demo-project"));
+//		assertTrue(outContent.toString().contains("3 routes found"));
 		
 		String writtenFile = null;
 		
 		try {
-			writtenFile = FileUtils.readFileToString(new File("src/test/resources/project-1/docs/routes.html"));
+			writtenFile = FileUtils.readFileToString(new File("src/test/resources/demo-project/docs/routes.html"));
 		} catch (IOException e) {
 			fail();
 		}
-		
+		System.out.println(writtenFile);
 		assertTrue(writtenFile.contains("<h1>Routes</h1>"));
-		assertTrue(writtenFile.contains("GET /home MainController.home"));
-		assertTrue(writtenFile.contains("POST /submit MainController.post"));
-		assertTrue(writtenFile.contains("* /about MainController.about"));
+		assertTrue(writtenFile.contains("GET /api/search Application.search / String query String responseType"));
+		assertTrue(writtenFile.contains("GET /api/artists Application.getArtists / String responseType"));
+		assertTrue(writtenFile.contains("GET /api/albums Application.getAlbums / String artist String responseType"));
 	}
 	
 }

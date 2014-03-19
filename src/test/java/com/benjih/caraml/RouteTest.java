@@ -38,6 +38,14 @@ public class RouteTest {
 	}
 	
 	@Test
+	public void iCanGetTheUriForTheControllerClassOfARoute() throws InvalidRouteException {
+		Route route = new Route("POST				/a/url		AController.somewhere");
+		assertThat(route.getControllerClassUri(), is("/app/controllers/AController.java"));
+		Route route2 = new Route("GET	/anotherurl							AnotherController.somewhereElse");
+		assertThat(route2.getControllerClassUri(), is("/app/controllers/AnotherController.java"));
+	}
+	
+	@Test
 	public void iCanGetTheAcceptedParametersForARoute() throws InvalidRouteException {
 		Route route = new Route("POST				/a/url		AController.somewhere");
 		
@@ -49,7 +57,19 @@ public class RouteTest {
 		assertThat(route.getParameters().get(0), is("one"));
 		assertThat(route.getParameters().get(1), is("two"));
 		assertThat(route.getParameters().get(2), is("three"));
+	}
+	
+	@Test
+	public void iCanAddAllTheParametersFromACollection() throws InvalidRouteException {
+		Route route = new Route("POST				/a/url		AController.somewhere");
+		List<String> parameters = new ArrayList<String>();
+		parameters.add("one");
+		parameters.add("two");
 		
+		route.addAllParameters(parameters);
+		assertThat(route.getParameters().size(), is(2));
+		assertThat(route.getParameters().get(0), is("one"));
+		assertThat(route.getParameters().get(1), is("two"));
 	}
 	
 	@Test
