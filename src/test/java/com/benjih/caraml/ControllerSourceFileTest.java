@@ -36,12 +36,14 @@ public class ControllerSourceFileTest {
 	@Test
 	public void iCanGetTheAnnotationsForAMethod() throws Exception {
 		ControllerSourceFile controller = new ControllerSourceFile("src/test/resources/Application.java");
+		assertThat(controller.getAnnotationsFor("showAlbums").size(), is(0));
+		
 		assertThat(controller.getAnnotationsFor("showArtists").size(), is(1));
 		assertThat(controller.getAnnotationsFor("showArtists").get(0), is("@CaramlController(\"This is about showArtists\")"));
 	}
 	
 	@Test
-	public void iDontGetANullPointerExceptionWhenICallForAnnoatationsForAnInvalidMethod() throws IOException, ParseException {
+	public void iDontGetANullPointerExceptionWhenICallForAnnotationsForAnInvalidMethod() throws IOException, ParseException {
 		ControllerSourceFile controller = new ControllerSourceFile("src/test/resources/Application.java");
 		assertThat(controller.getAnnotationsFor("missingMethod").size(), is(0));
 	}

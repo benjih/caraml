@@ -12,7 +12,6 @@ import org.jsoup.nodes.Document;
 public class Caraml {
 
 	public static void main(String args[]) throws IOException, ParseException {
-		System.out.println("Hello");
 		String uri = args[0];
 		
 		File projectRoot = new File(uri);
