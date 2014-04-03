@@ -21,16 +21,17 @@ public class DocumentBuilder {
 	public DocumentBuilder addRoutes(List<Route> routes) {
 		for(Route route : routes) {
 			String parameters = new String();
+			
 			if(route.getParameters().size() != 0) {
 				for(String parameter : route.getParameters()) {
 					parameters = parameters + " " + parameter;
 				}
 			}
 			
-			String description = "";
+			String routeDescription = "";
 			for(CaramlAnnotation annotation : route.getAnnotations()) {
 				if(annotation.getType() == "CaramlController") {
-					description = annotation.getDescriptions().get("controller");
+					routeDescription = annotation.getDescriptions().get("controller");
 				}
 			}
 			
@@ -38,7 +39,7 @@ public class DocumentBuilder {
 					"<span class=\"endpoint-type endpoint-" + route.getType().toLowerCase() + "\">" + route.getType() + "</span>" +
 					"<span class=\"endpoint-address\">" + route.getUrl() + " " + route.getControllerClass() + "." + route.getControllerMethod() + "</span>" + 
 					"<span class=\"endpoint-parameters\">" + parameters + "</span></div>" +
-					"<p>" + description + "</p>" + "</section>");
+					"<p>" + routeDescription + "</p>" + "</section>");
 		}
 		return this;
 	}
