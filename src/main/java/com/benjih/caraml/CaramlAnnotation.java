@@ -20,7 +20,7 @@ public class CaramlAnnotation {
 
 	public Map<String, String> getDescriptions() {
 		Map<String, String> descriptions = new HashMap<String, String>();
-		descriptions.put("controller", "This is an annotation");
+		descriptions.put("controller", annotation.split("\"")[1]);
 		return descriptions;
 	}
 	

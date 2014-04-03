@@ -25,6 +25,12 @@ public class CaramlAnnotationTest {
 		CaramlAnnotation annotation = new CaramlAnnotation("@CaramlController(\"This is an annotation\")");
 		assertThat(annotation.getDescriptions().size(), is(1));
 		assertThat(annotation.getDescriptions().get("controller"), is("This is an annotation"));
+		
+		annotation = new CaramlAnnotation("@CaramlController(\"This is another annotation\")");
+		assertThat(annotation.getDescriptions().size(), is(1));
+		assertThat(annotation.getDescriptions().get("controller"), is("This is another annotation"));
+		
+		
 	}
 	
 }
