@@ -89,27 +89,32 @@ public class RouteTest {
 	public void iCanGetAnnotationsAssociatedWithARoute() throws InvalidRouteException {
 		Route route = new Route("POST				/a/url		AController.somewhere");
 		
-		route.addAnnotation("@CaramlController(\"Something\")");
-		route.addAnnotation("@CaramlController(\"Another\")");
-		route.addAnnotation("@CaramlController(\"Yeah\")");
+		route.addAnnotation(new CaramlAnnotation("@CaramlController(\"Something\")"));
+		route.addAnnotation(new CaramlAnnotation("@CaramlController(\"Another\")"));
+		route.addAnnotation(new CaramlAnnotation("@CaramlController(\"Yeah\")"));
 		
 		assertThat(route.getAnnotations().size(), is(3));
-		assertThat(route.getAnnotations().get(0), is("@CaramlController(\"Something\")"));
-		assertThat(route.getAnnotations().get(1), is("@CaramlController(\"Another\")"));
-		assertThat(route.getAnnotations().get(2), is("@CaramlController(\"Yeah\")"));
+		assertThat(route.getAnnotations().get(0).getType(), is("CaramlController"));
+		assertThat(route.getAnnotations().get(0).getDescriptions().get("controller"), is("Something"));
+		assertThat(route.getAnnotations().get(1).getType(), is("CaramlController"));
+		assertThat(route.getAnnotations().get(1).getDescriptions().get("controller"), is("Another"));
+		assertThat(route.getAnnotations().get(2).getType(), is("CaramlController"));
+		assertThat(route.getAnnotations().get(2).getDescriptions().get("controller"), is("Yeah"));
 	}
 	
 	@Test
 	public void iCanAddAllTheAnnotationsFromACollection() throws InvalidRouteException {
 		Route route = new Route("POST				/a/url		AController.somewhere");
-		List<String> annotations = new ArrayList<String>();
-		annotations.add("@CaramlController(\"Annotation\")");
-		annotations.add("@CaramlController(\"Another one\")");
+		List<CaramlAnnotation> annotations = new ArrayList<CaramlAnnotation>();
+		annotations.add(new CaramlAnnotation("@CaramlController(\"Annotation\")"));
+		annotations.add(new CaramlAnnotation("@CaramlController(\"Another one\")"));
 		
 		route.addAllAnnotations(annotations);
 		assertThat(route.getAnnotations().size(), is(2));
-		assertThat(route.getAnnotations().get(0), is("@CaramlController(\"Annotation\")"));
-		assertThat(route.getAnnotations().get(1), is("@CaramlController(\"Another one\")"));
+		assertThat(route.getAnnotations().get(0).getType(), is("CaramlController"));
+		assertThat(route.getAnnotations().get(0).getDescriptions().get("controller"), is("Annotation"));
+		assertThat(route.getAnnotations().get(1).getType(), is("CaramlController"));
+		assertThat(route.getAnnotations().get(1).getDescriptions().get("controller"), is("Another one"));
 	}
 	
 	@Test

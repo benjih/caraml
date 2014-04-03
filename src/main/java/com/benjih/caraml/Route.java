@@ -10,7 +10,7 @@ public class Route {
 	private String controllerClass;
 	private String controllerMethod;
 	private List<String> parameters;
-	private List<String> annotations;
+	private List<CaramlAnnotation> annotations;
 	
 	public Route(String route) throws InvalidRouteException {
 		String[] split = route.split("\\s+");
@@ -24,7 +24,7 @@ public class Route {
 		this.controllerMethod = split[2].split("\\.")[1];
 		
 		this.parameters = new ArrayList<String>();
-		this.annotations = new ArrayList<String>();
+		this.annotations = new ArrayList<CaramlAnnotation>();
 	}
 	
 	public String getType() {
@@ -59,15 +59,15 @@ public class Route {
 		return parameters;
 	}
 	
-	public void addAnnotation(String annotation) {
+	public void addAnnotation(CaramlAnnotation annotation) {
 		annotations.add(annotation);
 	}
 	
-	public void addAllAnnotations(List<String> annotations) {
+	public void addAllAnnotations(List<CaramlAnnotation> annotations) {
 		this.annotations.addAll(annotations);
 	}
 
-	public List<String> getAnnotations() {
+	public List<CaramlAnnotation> getAnnotations() {
 		return annotations;
 	}
 

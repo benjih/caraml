@@ -28,9 +28,9 @@ public class DocumentBuilder {
 			}
 			
 			String description = "";
-			for(String annotation : route.getAnnotations()) {
-				if(annotation.startsWith("@CaramlController")) {
-					description = annotation.substring(19, annotation.length() - 2);
+			for(CaramlAnnotation annotation : route.getAnnotations()) {
+				if(annotation.getType() == "CaramlController") {
+					description = annotation.getDescriptions().get("controller");
 				}
 			}
 			

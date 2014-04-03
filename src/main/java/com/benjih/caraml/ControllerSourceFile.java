@@ -60,8 +60,8 @@ public class ControllerSourceFile {
 		return parameters;
 	}
 	
-	public List<String> getAnnotationsFor(String methodName) {
-		List<String> annotations = new ArrayList<String>();
+	public List<CaramlAnnotation> getAnnotationsFor(String methodName) {
+		List<CaramlAnnotation> annotations = new ArrayList<CaramlAnnotation>();
 		
 		MethodDeclaration method = methods.get(methodName);
 		
@@ -69,9 +69,9 @@ public class ControllerSourceFile {
 			return annotations;
 		}
 		
-		if(method.getAnnotations() != null) { /// THIS IS UNTESTED
+		if(method.getAnnotations() != null) {
 			for(AnnotationExpr annotation : method.getAnnotations()) {
-				annotations.add(annotation.toString());
+				annotations.add(new CaramlAnnotation(annotation.toString()));
 			}
 		}
 		

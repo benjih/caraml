@@ -81,7 +81,7 @@ public class DocumentBuilderTest {
 		
 		List<Route> routes = new ArrayList<Route>();
 		Route route = new Route("GET	/test/1	something.somewhere");
-		route.addAnnotation("@CaramlController(\"Yeah, this is a comment.\")");
+		route.addAnnotation(new CaramlAnnotation("@CaramlController(\"Yeah, this is a comment.\")"));
 		routes.add(route);
 		
 		Document routeDocument = builder.addRoutes(routes).build();

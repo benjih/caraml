@@ -39,7 +39,9 @@ public class ControllerSourceFileTest {
 		assertThat(controller.getAnnotationsFor("showAlbums").size(), is(0));
 		
 		assertThat(controller.getAnnotationsFor("showArtists").size(), is(1));
-		assertThat(controller.getAnnotationsFor("showArtists").get(0), is("@CaramlController(\"This is about showArtists\")"));
+		CaramlAnnotation annotation = controller.getAnnotationsFor("showArtists").get(0);
+		assertThat(annotation.getType(), is("CaramlController"));
+		assertThat(annotation.getDescriptions().get("controller"), is("This is about showArtists"));
 	}
 	
 	@Test
